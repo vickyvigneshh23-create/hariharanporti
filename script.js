@@ -1,0 +1,6 @@
+const menuButton=document.querySelector(".menu"),nav=document.querySelector(".nav");
+if(menuButton&&nav){menuButton.addEventListener("click",()=>{const open=nav.classList.toggle("open");menuButton.setAttribute("aria-expanded",String(open));});nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{nav.classList.remove("open");menuButton.setAttribute("aria-expanded","false");}));}
+const words=["Artificial Intelligence","Machine Learning","practical software","creative problem-solving"];let word=0,letter=0,erase=false;const target=document.querySelector("#typing");
+function type(){if(!target)return;const current=words[word];target.textContent=current.slice(0,letter);let delay=erase?40:70;if(!erase&&letter<current.length)letter++;else if(!erase){erase=true;delay=1200;}else if(letter>0)letter--;else{erase=false;word=(word+1)%words.length;delay=300;}setTimeout(type,delay);}type();
+const items=document.querySelectorAll(".reveal");if("IntersectionObserver"in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target);}}),{threshold:.12});items.forEach((el,i)=>{el.style.transitionDelay=`${i%4*70}ms`;observer.observe(el);});}else items.forEach(el=>el.classList.add("visible"));
+document.querySelector("#year").textContent=new Date().getFullYear();
